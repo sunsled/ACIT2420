@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pin="needle"
+
+if [ $1 == $pin ]; then
+	echo "found the needle"
+else
+	echo "try again"
+fi

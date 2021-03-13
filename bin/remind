@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+#--- creates reminders and prints reminders at start of shell
+
+FILE=/home/vagrant/.config/remind/reminders
+
+if test -f $FILE; then
+	#check if remind file exists
+	sudo chmod 777 $FILE
+else
+	#create remind file if it doesn't exist
+	sudo touch $FILE
+	sudo chmod 777 $FILE
+	if test -f $FILE; then
+		echo ''$FILE' successfully created'
+	else
+		echo ''$FILE' was not created'
+	fi
+fi
+
+#check at least 1 argument
+if (( $# > 0 )); then
+	#check first argument if matches option
+	if [[ $1 == -a ]]; then
+		if (( $# > 1 )); then
+			shift
+			sudo echo $@ >> $FILE
+			echo 'added to reminders. use remind to output reminders'
+		else
+			echo 'Try format: reminder -a [reminder to add]'
+		fi
+	elif [[ ! $1 == -a ]]; then
+		echo 'Try -a option to add a reminder'
+	fi
+elif (( $# == 0 )); then
+	echo 'Here are your reminders:'
+	cat $FILE
+fi

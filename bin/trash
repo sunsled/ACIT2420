@@ -1,0 +1,61 @@
+#!/bin/bash
+#
+#--- send files and dirs to trash instead of deleting
+
+move_file () {
+	#tests file and moves it
+	if test -e $1; then
+		if test -f $1; then
+			sudo mv $1 /home/vagrant/trash
+			echo "file: $1 moved to trash"
+		elif test -d $1; then
+			echo "$1 is dir; use option -d"
+		else
+			echo "$1 is not a valid file or dir"
+		fi
+	else
+		echo "$1 does not exist"
+	fi
+}
+
+
+move_dir () {
+	#tests dir and moves it
+	if test -d $1; then
+		sudo mv $1 /home/vagrant/trash
+		echo "dir: $1 moved to trash"
+	else
+		echo "$1 is not a valid dir"
+	fi
+		
+}
+
+
+#creates trash dir if it doesn't exist, then moves file
+if [ ! -d /home/vagrant/trash ]; then
+	sudo mkdir /home/vagrant/trash
+	if (( $# == 2 )); then
+		if [ $1 == -d ]; then
+			move_dir $2
+		else
+			echo "$1 is not a valid option; try -d for dir"
+		fi
+	elif (( $# == 1 )); then
+		move_file $1
+	else
+		echo "error: invalid number of arguments"
+	fi
+else
+	if (( $# == 2 )); then
+		if [ $1 == -d ]; then
+			move_dir $2
+		else
+			echo "$1 is not a valid option; try -d for dir"
+		fi
+	elif (( $# == 1 )); then
+		move_file $1
+	else
+		echo "error: invalid number of argmuents"
+	fi
+
+fi

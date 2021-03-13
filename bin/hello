@@ -1,0 +1,7 @@
+#!/bin/bash
+
+name="it'sme"
+
+if [ $name == "it'sme" ]; then
+	echo "name is it'sme"
+fi
