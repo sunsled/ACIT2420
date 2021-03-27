@@ -1,0 +1,10 @@
+[Unit]
+Description=weather service unit file.
+
+[Service]
+Type=exec
+ExecStart=/home/vagrant/bin/motd
+WorkingDirectory=/home/vagrant/bin
+
+[Install]
+WantedBy=multi-user.target

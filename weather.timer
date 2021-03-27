@@ -1,0 +1,9 @@
+[Unit]
+Description=run weather hourly and on boot
+
+[Timer]
+OnBootSec=5
+OnUnitActiveSec=10
+
+[Install]
+WantedBy=timers.target

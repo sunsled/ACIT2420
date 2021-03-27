@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+#--- script that writes weather report to motd and outputs it
+
+curl wttr.in/vancouver?format=3 > /home/vagrant/etc/motd
+
+cat /home/vagrant/etc/motd
