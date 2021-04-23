@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+#-- Writes kernel messages to a file
+
+FILENAME='warning-'`date +%d-%m-%H-%M`'.log' #-- add DATE to filename
+
+FILE=/home/vagrant/.config/logs/$FILENAME
+
+if test -f $FILE; then #-- check if file exists
+	sudo journalctl -p warning -b >> $FILE #-- check warning and above messages and writes to file
+	echo 'warning messages recorded in '$FILENAME''
+else
+	touch $FILE #-- create new file
+	sudo chmod 666 $FILE #-- add read/write permissions
+	sudo journalctl -p warning -b >> $FILE #-- write warnings to file
+	echo 'warning messages recorded in '$FILENAME''
+fi
+
